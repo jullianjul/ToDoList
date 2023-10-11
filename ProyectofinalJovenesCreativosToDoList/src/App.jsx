@@ -21,9 +21,9 @@ function App() {
   return (
     <div className='App'>
       <div className='header'>
-      <h1>Tu lista Maestra</h1>
-        <nav>
-          <ul>
+      <h1 className='titulo'>Tu lista Maestra</h1>
+        <nav className='Cajanav'>
+          <ul className='Navs'>
             <li><a href="/">Home</a></li>
             <li><a href="/SearchPage">Search Page</a></li>
             <li><a href="/Loginandregister">Registrarse/Iniciar</a></li>

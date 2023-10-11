@@ -1,36 +1,55 @@
 @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Autour+One&family=EB+Garamond:ital@0;1&family=Ubuntu:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Titan+One&display=swap');
 *{
     margin: none;
     padding: none;
 }
 .main{
-    background-color: blue;
+    background-image: url(/img/fondo.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
     margin-top: 0px;
     width: 100%;
     height: 92vh;
+}
+span{
+    font-family: 'Titan One', sans-serif;
+    color: rgb(241, 159, 51);
 }
 .titulo{
     font-size: 26px;
     font-family: 'EB Garamond', serif;
 }
 .title{
-    background-color: brown;
-    margin: 0;
+    background-color: rgba(247, 247, 247, 0.8);
     justify-content: center;
     align-items: center;
     text-align: center;
+    border-radius: 20px;
 }
 .titlebrand{
     font-size: 29px;
 }
-.descripcion{
-    background-color: hsl(63, 19%, 81%);
-    border: 2px solid hsla(249, 57%, 37%, 0.8);
+.descripcion2{
+    background-color: hsla(180, 87%, 76%, 0.5);
     border-radius: 20px;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    justify-content: space-between;
     height: 70vh;
+    backdrop-filter: blur(2px);
+}
+.descripcion{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.link{
+    font-size: 30px;
+    text-decoration: underline;
 }
 .cajadescripcion{
     width: 60%;
@@ -42,6 +61,7 @@
     justify-content: center;
     align-items: center;
     text-align: center;
+    flex-direction: column;
 }
 .descripcionP{
     font-size: 20px;
@@ -51,6 +71,8 @@
     width: 400px;
     margin-right: 40px;
     border-radius: 20px;
+    margin-left: 10px;
+    margin-top: 10px;
 }
 .active {
     opacity: 1;
@@ -66,15 +88,45 @@
     height: auto;
     display: block;
 }
-
-@media(max-width:800px){
-    .descripcion{
+.Botonesdenavegacion{
+    width: 60vw;
+    height: 40px;
+    display: flex;
+    margin-top: 20px;
+    justify-content: space-between;
+}
+.carousel__button{
+    height: 35px;
+    background-color: rgb(238, 173, 74);
+    border-radius: 20px;
+    border: none;
+    width: 100px;
+    cursor: pointer;
+    font-size: 20px;
+}
+.infoflechas{
+    font-size: 10px;
+}
+@media(max-width:1000px){
+    .descripcion2{
         flex-direction: column;
         height: 800px;
         justify-content: start;
     }
+    .descripcion{
+        flex-direction: column;
+        justify-content: start;
+    }
     .cajadescripcion{
-        width: 100%;
+        width: 98%;
         margin-left: 0;
+    }
+    .carousel__image{
+        margin-right: 0;
+        margin-left: 0;
+        width: 300px;
+    }
+    .main{
+        height: 150vh;
     }
 }

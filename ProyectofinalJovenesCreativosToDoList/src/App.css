@@ -6,9 +6,45 @@
 .header{
     display: flex;
     justify-content: space-between;
+    align-items: center;
     height: 8vh;
-    background-color: rgb(142, 142, 241);
+    background-color: rgb(233, 233, 252);
 }
 li{
     list-style-type: none;
+    margin-bottom: 5px ;
+    margin-right: 20px;
+}
+a{
+    font-size: 24px;
+    color: black;
+}
+.Navs{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 100px;
+}
+.Cajanav{
+    margin-right: 20px;
+}
+.titulo{
+    font-size: 20px;
+    margin-left: 100px;
+}
+@media(max-width:700px){
+    .Navs{
+        flex-direction: column;
+        margin-left: 10px;
+        margin-right: 0px;
+    }
+    .titulo{
+        margin-left: 5px;
+    }
+    a{
+        font-size: 15px;
+    }
+    li{
+        margin-bottom: 0;
+    }
 }
