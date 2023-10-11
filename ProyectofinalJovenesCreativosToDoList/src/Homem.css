@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Autour+One&family=EB+Garamond:ital@0;1&family=Ubuntu:wght@700&display=swap');
+*{
+    margin: none;
+    padding: none;
+}
+.main{
+    background-color: blue;
+    margin-top: 0px;
+    width: 100%;
+    height: 92vh;
+}
+.titulo{
+    font-size: 26px;
+    font-family: 'EB Garamond', serif;
+}
+.title{
+    background-color: brown;
+    margin: 0;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.titlebrand{
+    font-size: 29px;
+}
+.descripcion{
+    background-color: hsl(63, 19%, 81%);
+    border: 2px solid hsla(249, 57%, 37%, 0.8);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 70vh;
+}
+.cajadescripcion{
+    width: 60%;
+    background-color: hsl(64, 100%, 70%);
+    border-radius: 20px;
+    margin-left: 30px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.descripcionP{
+    font-size: 20px;
+    font-family: 'Ubuntu', sans-serif;
+}
+.carousel__image{
+    width: 400px;
+    margin-right: 40px;
+    border-radius: 20px;
+}
+.active {
+    opacity: 1;
+    transform: translateX(0);
+}
+.descripcion {
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  
+.carousel__image {
+    transition: opacity 0.5s ease;
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+@media(max-width:800px){
+    .descripcion{
+        flex-direction: column;
+        height: 800px;
+        justify-content: start;
+    }
+    .cajadescripcion{
+        width: 100%;
+        margin-left: 0;
+    }
+}
