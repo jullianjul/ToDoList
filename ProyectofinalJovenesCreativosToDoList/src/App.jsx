@@ -4,7 +4,8 @@ import Loginandregister from './Loginandregister';
 import './App.css';
 import Homem from './Homem';
 import Input from './input';
-
+import Aplication from './Aplication';
+import { Li } from './licomponents/li';
 
 function Home() {
 
@@ -41,15 +42,17 @@ const SearchPage= () => {
 
 
 function App() {
+    const getislog = localStorage.getItem('islog');
+    const isloguin = JSON.parse(getislog);
   return (
     <div className='App'>
       <div className='header'>
       <h1 className='titulos'>Tu lista Maestra</h1>
         <nav className='Cajanav'>
           <ul className='Navs'>
-            <li className='Navs_li'><a href="/">Home</a></li>
-            <li className='Navs_li'><a href="/SearchPage">Search Page</a></li>
-            <li className='Navs_li'><a href="/Loginandregister">Registrarse/Iniciar</a></li>
+            <Li className='Navs_li' link='/' content='Home'/>
+            <Li className='Navs_li' link='/SearchPage' content='SearchPage'/>
+            <Li className={isloguin ? 'Navs_log_user' : 'Navs_li'} link={isloguin ? '/Aplication' : '/Loginandregister'} content={isloguin ? 'Ingresar' : 'Registrarse/iniciar'}/>
           </ul>
         </nav> 
       </div>
@@ -57,6 +60,7 @@ function App() {
         <Route path='/' element={<Home />}/>
         <Route path='/SearchPage' element={<SearchPage />} />
         <Route path='/Loginandregister' element={<Loginandregister/>} />
+        <Route path='/Aplication' element={<Aplication/>} />
       </Routes>
     </div>
   );

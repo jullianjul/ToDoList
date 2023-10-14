@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import './Loginandregister.css';
 import Input from './input';
 
+
+
 const Loginandregister= () => {
   {/*inicio animación*/}
   useEffect(() => {
@@ -79,29 +81,55 @@ const Loginandregister= () => {
   
   const [Email, setEmail]= useState('');
   const [password, setPassword]= useState('');
-  const [passwordError, setPasswordError]= useState(false)
-
+  const [passwordError, setPasswordError]= useState(false);
+  const [isLogin, setIsLogin]= useState(false);
+  const [hasError, setHasError]= useState(false);
 
   function handleChange(attributes,Value){
     if (attributes.name === 'email'){
       setEmail(Value)
+      setHasError(false)
     } else if(attributes.name === 'Password'){
       if(Value.length <6){
         setPasswordError(true);
+        setHasError(false)
       }else{
         setPasswordError(false);
         setPassword(Value)
+        setHasError(false)
       }
+    }
+  }
+
+  function ifMatch(param){
+    if(param.Email.length > 0 && param.password.length > 0){
+      if(param.Email==='juliandavidoviedoramirez@gmail.com' && param.password=== '123456'){
+        const { Email, password}= param;
+        let ac= {Email, password};
+        let account = JSON.stringify(ac);
+        localStorage.setItem('account',account)
+        localStorage.setItem('islog',true)
+        setIsLogin(true);
+        setHasError(false);
+        window.location.href = '/Aplication';
+      } else{
+        setIsLogin(false);
+        setHasError(true);
+        localStorage.setItem('islog',false)
+      }
+    }else {
+      setIsLogin(false);
+      setHasError(true);
+      localStorage.setItem('islog',false)
     }
   }
 
   function handleSubmit(){
     let account = {Email, password}
     if (account){
-      console.log('account:', account)
+      ifMatch(account)
     }
   } 
-
   return (
     <div className="LoginAndRegister">
         <main>
@@ -122,6 +150,10 @@ const Loginandregister= () => {
             <div className="contenedor__login-register">
               <form  className="formulario__login">
                 <h2>Iniciar Sesión</h2>
+                {hasError &&
+                <div className='label-alert'>
+                <label htmlFor="" className='label-alert-content'>su contraseña o usuario son incorrectos o no estan en nuestra plataforma</label>
+                </div>}
                 <Input attributes={{
                   id:'email',
                   name: 'email',
@@ -139,8 +171,11 @@ const Loginandregister= () => {
                 handleChange={handleChange}
                 param={passwordError} 
                 />
-                <button onClick={handleSubmit}>Entrar</button>
-              </form>
+                {passwordError && 
+                <label htmlFor="" className='label-error'>contraseña invalida o incompleta</label>
+                }
+                <input onClick={handleSubmit} type='button' value={'Entrar'}  className='botonentrar'/>
+              </form> 
               <form className="formulario__register">
                 <h2>Regístrarse</h2>
                 <Input attributes={{
@@ -171,6 +206,9 @@ const Loginandregister= () => {
                   placeholder: 'Ingrese una Contraseña'
                 }
                 } handleChange={handleChange} />
+                {passwordError && 
+                <label htmlFor="" className='label-error'>contraseña invalida o incompleta</label>
+                }
                 <button>Regístrarse</button>
               </form>
             </div>
@@ -181,3 +219,5 @@ const Loginandregister= () => {
 }
 
 export default Loginandregister;
+
+

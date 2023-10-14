@@ -105,9 +105,12 @@ main{
   margin-top: 20px;
   padding: 10px;
   border: none;
-  background: #F2F2F2;
   font-size: 16px;
   outline: none;
+}
+
+.input_Style{
+  background-color: #F2F2F2;
 }
 
 .contenedor__login-register form button{
@@ -132,8 +135,16 @@ main{
 .formulario__register{
   display: none;
 }
+.label-error{
+  color: red;
+}
 
-
+.label-alert{
+  color: red;
+  background-color: hsla(0, 53%, 53%, 0.5);
+  border-radius: 20px;
+  text-align: center;
+}
 
 @media screen and (max-width: 850px){
 
@@ -165,4 +176,9 @@ main{
   .contenedor__login-register form{
       position: relative;
   }
+}
+.botonentrar{
+  cursor: pointer;
+  background-color: #46A2FD;
+  color: white;
 }
