@@ -12,7 +12,7 @@ function Homem() {
       image: "/img/Marcandocorrecto.jpg", // Ruta de tu imagen
     },
     {
-      description: "¡Organiza, Haz, Avanza! Con Tu Lista Maestra, tu lista de tareas nunca ha sido tan fácil de manejar. ¡Únete hoy y pon fin a la procrastinación!",
+      description: "¡Organiza, Haz, Realiza! Con Tu Lista Maestra, tu lista de tareas nunca ha sido tan fácil de manejar. ¡Únete hoy y pon fin a la procrastinación!",
       image: "/img/hacertodo.jpg", // Ruta de tu imagen
       link: "Registrate Aquí"
     },

@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Loginandregister from './Loginandregister';
 import './App.css';
 import Homem from './Homem';
+import Input from './input';
 
 
 function Home() {
@@ -12,8 +13,30 @@ function Home() {
   )
 }
 
-function SearchPage() {
-  return <h1>Search Page</h1>;
+const SearchPage= () => {
+
+  const [user, setemail]= useState('')
+  function handleChange(attributes, value){
+    if(attributes.name === 'user'){
+      setemail(value)
+    }else{
+      console.log('error')
+    }
+  }
+
+  console.log('usuario',user)
+  return(
+    <>
+    <Input attributes={{
+                  id:'email',
+                  name: 'user',
+                  type: 'text',
+                  placeholder: 'Ingrese su email'
+                }
+                } handleChange={handleChange}/>
+    </>
+  );
+  
 }
 
 
@@ -21,12 +44,12 @@ function App() {
   return (
     <div className='App'>
       <div className='header'>
-      <h1 className='titulo'>Tu lista Maestra</h1>
+      <h1 className='titulos'>Tu lista Maestra</h1>
         <nav className='Cajanav'>
           <ul className='Navs'>
-            <li><a href="/">Home</a></li>
-            <li><a href="/SearchPage">Search Page</a></li>
-            <li><a href="/Loginandregister">Registrarse/Iniciar</a></li>
+            <li className='Navs_li'><a href="/">Home</a></li>
+            <li className='Navs_li'><a href="/SearchPage">Search Page</a></li>
+            <li className='Navs_li'><a href="/Loginandregister">Registrarse/Iniciar</a></li>
           </ul>
         </nav> 
       </div>

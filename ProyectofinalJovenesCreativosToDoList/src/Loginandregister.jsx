@@ -1,7 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Loginandregister.css';
+import Input from './input';
 
-function Loginandregister() {
+const Loginandregister= () => {
+  {/*inicio animación*/}
   useEffect(() => {
     const btnIniciarSesion = document.getElementById("btn__iniciar-sesion");
     const btnRegistrarse = document.getElementById("btn__registrarse");
@@ -71,10 +73,37 @@ function Loginandregister() {
       window.removeEventListener("resize", anchoPage);
     };
   }, []);
+  {/*Fin animación*/}
+
+  {/*recibidor de parametros*/}
+  
+  const [Email, setEmail]= useState('');
+  const [password, setPassword]= useState('');
+  const [passwordError, setPasswordError]= useState(false)
+
+
+  function handleChange(attributes,Value){
+    if (attributes.name === 'email'){
+      setEmail(Value)
+    } else if(attributes.name === 'Password'){
+      if(Value.length <6){
+        setPasswordError(true);
+      }else{
+        setPasswordError(false);
+        setPassword(Value)
+      }
+    }
+  }
+
+  function handleSubmit(){
+    let account = {Email, password}
+    if (account){
+      console.log('account:', account)
+    }
+  } 
 
   return (
     <div className="LoginAndRegister">
-      <body>
         <main>
           <div className="contenedor__todo">
             <div className="caja__trasera">
@@ -91,24 +120,62 @@ function Loginandregister() {
             </div>
 
             <div className="contenedor__login-register">
-              <form action="" className="formulario__login">
+              <form  className="formulario__login">
                 <h2>Iniciar Sesión</h2>
-                <input type="text" placeholder="Correo Electronico" />
-                <input type="password" placeholder="Contraseña" />
-                <button>Entrar</button>
+                <Input attributes={{
+                  id:'email',
+                  name: 'email',
+                  type: 'text',
+                  placeholder: 'Ingrese su email'
+                }
+                } handleChange={handleChange}/>
+                <Input attributes={{
+                  id:'Pass',
+                  name: 'Password',
+                  type: 'Password',
+                  placeholder: 'Ingrese su contraseña'
+                }
+                }
+                handleChange={handleChange}
+                param={passwordError} 
+                />
+                <button onClick={handleSubmit}>Entrar</button>
               </form>
-              <form action="" className="formulario__register">
+              <form className="formulario__register">
                 <h2>Regístrarse</h2>
-                <input type="text" placeholder="Nombre completo" />
-                <input type="text" placeholder="Correo Electronico" />
-                <input type="text" placeholder="Usuario" />
-                <input type="password" placeholder="Contraseña" />
+                <Input attributes={{
+                  id:'Nameuserid',
+                  name: 'Nameuser',
+                  type: 'text',
+                  placeholder: 'Ingrese su Nombre'
+                }
+                }handleChange={handleChange} />
+                <Input attributes={{
+                  id:'Correousuario',
+                  name: 'Email',
+                  type: 'text',
+                  placeholder: 'Ingrese su Email'
+                }
+                } handleChange={handleChange} />
+                  <Input attributes={{
+                  id:'Username',
+                  name: 'Username',
+                  type: 'text',
+                  placeholder: 'Ingrese su Nombre de usuario'
+                }
+                } handleChange={handleChange} />
+                    <Input attributes={{
+                  id:'Password',
+                  name: 'Passworduser',
+                  type: 'password',
+                  placeholder: 'Ingrese una Contraseña'
+                }
+                } handleChange={handleChange} />
                 <button>Regístrarse</button>
               </form>
             </div>
           </div>
         </main>
-      </body>
     </div>
   );
 }

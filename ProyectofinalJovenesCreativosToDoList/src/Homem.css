@@ -28,6 +28,8 @@ span{
     align-items: center;
     text-align: center;
     border-radius: 20px;
+    border: solid 1px;
+    border-color:hsl(0, 0%, 0%);
 }
 .titlebrand{
     font-size: 29px;
@@ -53,7 +55,9 @@ span{
 }
 .cajadescripcion{
     width: 60%;
+    border: solid 4px;
     background-color: hsl(64, 100%, 70%);
+    border-color: hsl(67, 100%, 98%);
     border-radius: 20px;
     margin-left: 30px;
     height: 300px;
@@ -62,6 +66,7 @@ span{
     align-items: center;
     text-align: center;
     flex-direction: column;
+    box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.7);
 }
 .descripcionP{
     font-size: 20px;
@@ -73,6 +78,9 @@ span{
     border-radius: 20px;
     margin-left: 10px;
     margin-top: 10px;
+    border: solid 1px;
+    border-color:hsl(0, 0%, 0%);
+    box-shadow: 0px 12px 8px rgba(0, 0, 0, 0.7);
 }
 .active {
     opacity: 1;
@@ -94,6 +102,7 @@ span{
     display: flex;
     margin-top: 20px;
     justify-content: space-between;
+    margin-bottom: 10px;
 }
 .carousel__button{
     height: 35px;
