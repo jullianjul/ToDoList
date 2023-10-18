@@ -10,6 +10,8 @@ export const Todolistapp = () => {
         localStorage.removeItem('islog'); // Borra 'islog' del Local Storage
         // Agrega aquí más llamadas a localStorage.removeItem para otros elementos que quieras eliminar.
         window.location.href = '/Loginandregister';
+        localStorage.removeItem('todolist');
+        localStorage.removeItem('completedTodos');
       };
       const [allTodos, setAllTodos] = useState ([]);
   const [newTodoTitle, setNewTodoTitle] = useState ('');
