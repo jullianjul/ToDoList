@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import './Aplication.css'
+import { Todolistapp } from './Todolistapp/Todolistapp';
 
 const Aplication = () => {
   const storedAccount = localStorage.getItem('account');
   const user = JSON.parse(storedAccount);
-  const userEmail = user ? user.Email : '';
+  const username = user ? user.username : '';
+  const Name = user ? user.NameR : '';
+  const Email = user ? user.EmailR : '';
+  const Password = user ? user.passwordR : '';
   const getislog = localStorage.getItem('islog');
   const isloguin = JSON.parse(getislog);
 
@@ -31,22 +35,12 @@ const Aplication = () => {
     }
   }, [segundosRestantes, isloguin]);
 
-  const clearLocalStorage = () => {
-    localStorage.removeItem('account'); // Borra 'account' del Local Storage
-    localStorage.removeItem('islog'); // Borra 'islog' del Local Storage
-    // Agrega aquí más llamadas a localStorage.removeItem para otros elementos que quieras eliminar.
-    window.location.href = '/Loginandregister';
-  };
 
 
   return (
     <div>
       {isloguin ? (
-        <div>
-          <h1>Bienvenido, {userEmail}</h1>
-          {/* Aquí puedes incluir contenido adicional para usuarios logueados */}
-          <button onClick={clearLocalStorage}>Cerrar Sesión</button>
-        </div>
+          <Todolistapp />
       ) : (
         <div className='alertnotlog'>
         <h1>Muy mal, no has iniciado sesión y estas intentando entrar</h1>

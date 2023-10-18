@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import Loginandregister from './Loginandregister';
+import LoginAndRegister from './LoginAndRegister';
 import './App.css';
 import Homem from './Homem';
 import Input from './input';
@@ -44,10 +44,32 @@ const SearchPage= () => {
 function App() {
     const getislog = localStorage.getItem('islog');
     const isloguin = JSON.parse(getislog);
+    const storedAccount = localStorage.getItem('account');
+    const user = JSON.parse(storedAccount);
+    const username = user ? user.username : '';
+    const [usershow, setUserShow]= useState('');
+
+    useEffect(() => {
+      if(username.length>10){
+        setUserShow(username.substring(0, 10) + '...')
+      }else{
+        setUserShow(username)
+      }
+    }, []);
+
   return (
     <div className='App'>
       <div className='header'>
-      <h1 className='titulos'>Tu lista Maestra</h1>
+      <div className='perfiltitulos'>
+      {isloguin ? (
+        <>
+        <h1 className='titulos'>Lista Maestra de {usershow}</h1>
+        <button className='btn-miperfil'>Mi perfil</button>
+        </>
+      ):
+      (<h1 className='titulos'>Tu lista Maestra</h1>)
+      }
+      </div>
         <nav className='Cajanav'>
           <ul className='Navs'>
             <Li className='Navs_li' link='/' content='Home'/>
@@ -59,7 +81,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Home />}/>
         <Route path='/SearchPage' element={<SearchPage />} />
-        <Route path='/Loginandregister' element={<Loginandregister/>} />
+        <Route path='/Loginandregister' element={<LoginAndRegister/>} />
         <Route path='/Aplication' element={<Aplication/>} />
       </Routes>
     </div>

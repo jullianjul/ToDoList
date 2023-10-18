@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import './Loginandregister.css';
+import './LoginAndRegister.css';
 import Input from './input';
 import { Register } from './licomponents/Register';
 
 
-const Loginandregister= () => {
+const LoginAndRegister= () => {
   {/*inicio animación*/}
   useEffect(() => {
     const btnIniciarSesion = document.getElementById("btn__iniciar-sesion");
@@ -96,23 +96,24 @@ const Loginandregister= () => {
   {/*fin parametros login*/}
    {/*funciones login*/}
   function handleChange(attributes,Value){
+    setEmailAlreadyRegister(false);
+    setRegisterSuccess(false);
+    setUserAlreadyRegister(false);
     if (attributes.name === 'email'){
       setEmail(Value)
       setHasError(false)
-      setRegisterSuccess(false)
     } else if(attributes.name === 'Password'){
       if(Value.length <6){
         setPasswordError(true);
         setHasError(false)
-        setRegisterSuccess(false)
       }else{
         setPasswordError(false);
         setPassword(Value)
         setHasError(false)
-        setRegisterSuccess(false)
       }
     }
   }
+  
 
   function handleSubmit(){
     let account = {Email, password}
@@ -127,8 +128,8 @@ const Loginandregister= () => {
     const matchingUser = usersData.find(user => user.EmailR === accountuser.Email && user.passwordR === accountuser.password);
   
     if (accountuser.Email.length > 0 && accountuser.password.length > 0 && matchingUser) {
-      const { EmailR, passwordR, NameR } = matchingUser;
-      let ac = { EmailR, passwordR,NameR };
+      const { EmailR, passwordR, NameR, username } = matchingUser;
+      let ac = { EmailR, passwordR,NameR, username};
       let account = JSON.stringify(ac);
       localStorage.setItem('account', account);
       localStorage.setItem('islog', true);
@@ -149,6 +150,7 @@ const Loginandregister= () => {
 
   {/*fin parametros login*/}
 
+
   {/*funciones register*/}
   
   const [EmailR, setEmailr]= useState('');
@@ -158,13 +160,16 @@ const Loginandregister= () => {
   const [passwordErrorR, setPasswordErrorr]= useState(false);
   const [EmailError, setEmailError]= useState(false);
   const [hasErrorR, setHasErrorr]= useState(false);
-  const [UserError, setUserError]= useState(false)
-
+  const [UserError, setUserError]= useState(false);
+  const [Useralreadyregister, setUserAlreadyRegister]= useState(false);
+  const [Emailalreadyregister, setEmailAlreadyRegister]= useState(false);
 
 
 
   function handleChangeregister(attributes,Value){
-    setRegisterSuccess(false)
+    setRegisterSuccess(false);
+    setEmailAlreadyRegister(false);
+    setUserAlreadyRegister(false);
     if(attributes.name==='Nameuser'){
       setNamer(Value)
       setHasErrorr(false)
@@ -197,7 +202,11 @@ const Loginandregister= () => {
       if(username.length<5){
         setUserError(true);
       }else{
-        setUserError(false);
+        if(username.length>=20){
+          setUserError(true)
+        }else{
+          setUserError(false);
+        }
       }
     }
     if(attributes.name==='Passworduser'){
@@ -237,13 +246,35 @@ const Loginandregister= () => {
   
     // Paso 1: Obtén el valor actual del localStorage o inicializa un arreglo vacío si no existe
     const existingData = JSON.parse(localStorage.getItem('usertotalinfo')) || [];
-    // Paso 2: Crea un nuevo objeto con los datos y se agrega al arreglo
+  
+    // Paso 2: Verifica si el correo electrónico ya existe en el registro
+    const isEmailAlreadyExists = existingData.some(user => user.EmailR === EmailR);
+    const isUserAlreadyExists = existingData.some(user => user.username === username);
+    if (isUserAlreadyExists) {
+      // El correo electrónico ya está registrado, muestra un mensaje de error
+      console.log('El correo usuario ya está registrado');
+      setUserAlreadyRegister(true);
+    }
+    if (isEmailAlreadyExists) {
+      // El correo electrónico ya está registrado, muestra un mensaje de error
+      console.log('El correo electrónico ya está registrado');
+      setEmailAlreadyRegister(true);
+      return;
+    }
+    if (isUserAlreadyExists) {
+      // El correo electrónico ya está registrado, muestra un mensaje de error
+      console.log('El correo usuario ya está registrado');
+      setUserAlreadyRegister(true);
+      return;
+    }
+  
+    // El correo electrónico no está registrado, puedes agregar al nuevo usuario
     const newUserInfo = { EmailR, passwordR, NameR, username };
     existingData.push(newUserInfo);
   
     // Paso 3: Guarda el arreglo actualizado en el localStorage
     localStorage.setItem('usertotalinfo', JSON.stringify(existingData));
-    console.log('papi se te guardo')
+    console.log('Usuario registrado exitosamente');
     setRegisterSuccess(true);
   }
   
@@ -253,11 +284,17 @@ const Loginandregister= () => {
 
   return (
     <div className="LoginAndRegister">
+      {Emailalreadyregister &&
+      <h1 className='Register-error'>Ya hay una cuenta con ese email, inicie sesión porfavor.</h1>
+      }
+      {Useralreadyregister &&
+      <h1 className='Register-error'>Lo sentimos, parece que ya hay un usuario registrado con ese nombre de usuario, ingrese otro porfavor.</h1>
+      }
       {registersuccess &&
-      <h1 className='userloged'>felicitaciones, te has registrado, ahora puedes iniciar sesión</h1>
+      <h1 className='userloged'>felicitaciones, te has registrado, ahora puedes iniciar sesión.</h1>
       }
       {hasErrorR &&
-          <h1>Porfavor, llene bien los campos para poder ser registrado</h1>
+          <h1 className='Register-error'>Porfavor, llene bien los campos para poder ser registrado.</h1>
       }
         <main>
           <div className="contenedor__todo">
@@ -334,7 +371,7 @@ const Loginandregister= () => {
                 }
                 } handleChangeregister={handleChangeregister} />
                 {UserError && 
-                <label htmlFor="" className='label-error'>Su usuario debe ser de 5 caracteres o más</label>
+                <label htmlFor="" className='label-error'>Su usuario debe ser entre 5 y 20 caracteres</label>
                 }
                     <Register attributes={{
                   id:'Password',
@@ -357,6 +394,6 @@ const Loginandregister= () => {
   );
 }
 
-export default Loginandregister;
+export default LoginAndRegister;
 
 

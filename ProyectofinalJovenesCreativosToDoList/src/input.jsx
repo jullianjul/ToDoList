@@ -4,6 +4,8 @@ import './Input.css'
 
 const Input = ({attributes, handleChange, param})=> {
   return (
+    <>
+    <label htmlFor={attributes.id}></label>
     <input
       id={attributes.id}
       name={attributes.name}
@@ -12,6 +14,7 @@ const Input = ({attributes, handleChange, param})=> {
       onChange={ (e) => handleChange(e.target, e.target.value)}
       className={ param ? 'input-error': 'input_Style'}
      />
+    </>
   );
 }
 

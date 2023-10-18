@@ -2,6 +2,8 @@ import React from 'react'
 
 export const Register = ({attributes, handleChangeregister, props}) => {
   return (
+    <>
+    <label htmlFor={attributes.id}></label>
     <input
     id={attributes.id}
     name={attributes.name}
@@ -10,5 +12,6 @@ export const Register = ({attributes, handleChangeregister, props}) => {
     onChange={ (e) => handleChangeregister(e.target, e.target.value)}
     className={attributes.Check}
    />
+    </>
   )
 }

@@ -146,6 +146,23 @@ main{
   text-align: center;
 }
 
+.Register-error{
+  display: flex;
+  font-size: 20px;
+  justify-content: center;
+  align-items: center;
+  color: red;
+  background-color: hsla(0, 53%, 53%, 0.5);
+}
+.userloged{
+  display: flex;
+  font-size: 20px;
+  justify-content: center;
+  align-items: center;
+  color: rgb(36, 97, 21);
+  background-color: hsla(125, 53%, 53%, 0.5);
+}
+
 @media screen and (max-width: 850px){
 
   main{
