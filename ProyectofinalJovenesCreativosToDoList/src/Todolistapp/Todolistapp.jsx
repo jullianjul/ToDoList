@@ -1,108 +1,120 @@
 import React, { useState, useEffect } from 'react';
-import './Todolistapp.css'
-import {AiOutlineDelete} from 'react-icons/ai';
-import {BsCheckLg} from 'react-icons/bs';
+import './Todolistapp.css';
+import { AiOutlineDelete } from 'react-icons/ai';
+import { BsCheckLg } from 'react-icons/bs';
 
 export const Todolistapp = () => {
-
-    const clearLocalStorage = () => {
-        localStorage.removeItem('account'); // Borra 'account' del Local Storage
-        localStorage.removeItem('islog'); // Borra 'islog' del Local Storage
-        // Agrega aquí más llamadas a localStorage.removeItem para otros elementos que quieras eliminar.
-        window.location.href = '/Loginandregister';
-        localStorage.removeItem('todolist');
-        localStorage.removeItem('completedTodos');
-      };
-      const [allTodos, setAllTodos] = useState ([]);
-  const [newTodoTitle, setNewTodoTitle] = useState ('');
-  const [newDescription, setNewDescription] = useState ('');
-  const [completedTodos, setCompletedTodos] = useState ([]);
-  const [isCompletedScreen, setIsCompletedScreen] = useState (false);
-
-const handleAddNewToDo = () => {
-  let newToDoObj = {
-    title: newTodoTitle,
-    description: newDescription,
+  const clearLocalStorage = () => {
+    localStorage.removeItem('account');
+    localStorage.removeItem('islog');
+    window.location.href = '/Loginandregister';
   };
 
-  let updatedTodoArr = [...allTodos];
-  updatedTodoArr.push(newToDoObj);
-  setAllTodos(updatedTodoArr);
-  localStorage.setItem('todolist', JSON.stringify(updatedTodoArr));
-  setNewDescription('');
-  setNewTodoTitle('');
-};
+  const [loggedInUser, setLoggedInUser] = useState(null);
+  const [allTodos, setAllTodos] = useState([]);
+  const [newTodoTitle, setNewTodoTitle] = useState('');
+  const [newDescription, setNewDescription] = useState('');
+  const [completedTodos, setCompletedTodos] = useState([]);
+  const [isCompletedScreen, setIsCompletedScreen] = useState(false);
 
-  
-  
+  const handleAddNewToDo = () => {
+    let newToDoObj = {
+      title: newTodoTitle,
+      description: newDescription,
+    };
 
-  useEffect (() => {
-    let savedTodos = JSON.parse (localStorage.getItem ('todolist'));
-    let savedCompletedToDos = JSON.parse (
-      localStorage.getItem ('completedTodos')
-    );
-    if (savedTodos) {
-      setAllTodos (savedTodos);
+    let updatedTodoArr = [...allTodos, newToDoObj];
+    setAllTodos(updatedTodoArr);
+    saveTodos(updatedTodoArr);
+    setNewDescription('');
+    setNewTodoTitle('');
+  };
+
+  const saveTodos = (updatedTodos) => {
+    if (loggedInUser) {
+      const userKey = loggedInUser.EmailR;
+      const userSpecificData = JSON.parse(localStorage.getItem(userKey));
+
+      if (userSpecificData) {
+        userSpecificData.todos = updatedTodos;
+        localStorage.setItem(userKey, JSON.stringify(userSpecificData));
+      }
     }
+  };
 
-    if (savedCompletedToDos) {
-      setCompletedTodos (savedCompletedToDos);
+  const saveCompletedTodos = (updatedCompletedList) => {
+    if (loggedInUser) {
+      const userKey = loggedInUser.EmailR;
+      const userSpecificData = JSON.parse(localStorage.getItem(userKey));
+
+      if (userSpecificData) {
+        userSpecificData.completedTodos = updatedCompletedList;
+        localStorage.setItem(userKey, JSON.stringify(userSpecificData));
+      }
+    }
+  };
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('account'));
+    setLoggedInUser(user);
+
+    if (user) {
+      const userKey = user.EmailR;
+      const userSpecificData = JSON.parse(localStorage.getItem(userKey));
+
+      if (!userSpecificData) {
+        localStorage.setItem(userKey, JSON.stringify({ todos: [], completedTodos: [] }));
+      } else {
+        setAllTodos(userSpecificData.todos);
+        setCompletedTodos(userSpecificData.completedTodos);
+      }
     }
   }, []);
 
-  const handleToDoDelete = index => {
-    let reducedTodos = [...allTodos];
-    reducedTodos.splice (index,1);
-    // console.log (index);
-
-    // console.log (reducedTodos);
-    localStorage.setItem ('todolist', JSON.stringify (reducedTodos));
-    setAllTodos (reducedTodos);
+  const handleToDoDelete = (index) => {
+    let updatedTodoArr = [...allTodos];
+    updatedTodoArr.splice(index, 1);
+    setAllTodos(updatedTodoArr);
+    saveTodos(updatedTodoArr);
   };
 
   const handleCompletedTodoDelete = (index) => {
-    const updatedCompletedTodos = completedTodos.filter((_, i) => i !== index);
-  
-    localStorage.setItem('completedTodos', JSON.stringify(updatedCompletedTodos));
-    setCompletedTodos(updatedCompletedTodos);
+    let updatedCompletedList = [...completedTodos];
+    updatedCompletedList.splice(index, 1);
+    setCompletedTodos(updatedCompletedList);
+    saveCompletedTodos(updatedCompletedList);
   };
-  
 
-  const handleComplete = index => {
-    const date = new Date ();
-    var dd = date.getDate ();
-    var mm = date.getMonth () + 1;
-    var yyyy = date.getFullYear ();
-    var hh = date.getHours ();
-    var minutes = date.getMinutes ();
-    var ss = date.getSeconds ();
-    var finalDate =
-      dd + '-' + mm + '-' + yyyy + ' at ' + hh + ':' + minutes + ':' + ss;
+  const handleComplete = (index) => {
+    if (loggedInUser) {
+      const date = new Date();
+      var dd = date.getDate();
+      var mm = date.getMonth() + 1;
+      var yyyy = date.getFullYear();
+      var hh = date.getHours();
+      var minutes = date.getMinutes();
+      var ss = date.getSeconds();
+      var finalDate = dd + '-' + mm + '-' + yyyy + ' a las ' + hh + ':' + minutes + ':' + ss;
 
-    let filteredTodo = {
-      ...allTodos[index], //crea una copia superficial del objeto y le agrega la fecha en la que se realizó
-      completedOn: finalDate,
-    };
+      let filteredTodo = {
+        ...allTodos[index],
+        completedOn: finalDate,
+      };
 
-    // console.log (filteredTodo);
+      let updatedCompletedList = [...completedTodos, filteredTodo];
+      let updatedTodoArr = allTodos.filter((_, i) => i !== index);
 
-    let updatedCompletedList = [...completedTodos, filteredTodo];
-    console.log (updatedCompletedList);
-    setCompletedTodos (updatedCompletedList);
-    localStorage.setItem (
-      'completedTodos',
-      JSON.stringify (updatedCompletedList)
-    );
-    // console.log (index);
+      setCompletedTodos(updatedCompletedList);
+      setAllTodos(updatedTodoArr);
 
-    handleToDoDelete (index);
+      saveCompletedTodos(updatedCompletedList);
+      saveTodos(updatedTodoArr);
+    }
   };
+
 
   return (
-    <div className="App">
-        <div className='cerrarsesion'>
-        <button onClick={clearLocalStorage} className='cerrarsesion-btn'>Cerrar Sesión</button>
-        </div>
+    <div className="container-ALL">
       <h1 className='Todolisttitle'>Tu lista maestra</h1>
 
       <div className="todo-wrapper">
@@ -118,7 +130,7 @@ const handleAddNewToDo = () => {
             />
           </div>
           <div className="todo-input-item">
-            <label className='New-to-do-liststyle'>Descripción:</label>
+            <label className='New-to-do-liststyle-description'>Descripción:</label>
             <input
               type="text"
               value={newDescription}
@@ -132,7 +144,7 @@ const handleAddNewToDo = () => {
               type="button"
               onClick={handleAddNewToDo}
             >
-              Add
+              Añadir
             </button>
           </div>
         </div>
@@ -141,13 +153,13 @@ const handleAddNewToDo = () => {
             className={`secondaryBtn ${isCompletedScreen === false && 'active'}`}
             onClick={() => setIsCompletedScreen (false)}
           >
-            To Do
+            Pendientes
           </button>
           <button
             className={`secondaryBtn ${isCompletedScreen === true && 'active'}`}
             onClick={() => setIsCompletedScreen (true)}
           >
-            Completed
+            Finalizadas
           </button>
         </div>
         <div className="todo-list">
@@ -179,9 +191,9 @@ const handleAddNewToDo = () => {
             completedTodos.map ((item, index) => (
               <div className="todo-list-item" key={index}>
                 <div>
-                  <h3>{item.title}</h3>
+                  <h3 className='completed-task'>{item.title}</h3>
                   <p>{item.description}</p>
-                  <p> <i>Completed at: {item.completedOn}</i></p>
+                  <p> <i>Completado el: {item.completedOn}</i></p>
                 </div>
                 <div>
                   <AiOutlineDelete
@@ -193,6 +205,9 @@ const handleAddNewToDo = () => {
             ))}
         </div>
       </div>
+      <div className='cerrarsesion'>
+        <button onClick={clearLocalStorage} className='cerrarsesion-btn'>Cerrar Sesión</button>
+        </div>
     </div>
   );
 }

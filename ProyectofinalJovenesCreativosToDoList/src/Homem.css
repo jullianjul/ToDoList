@@ -52,6 +52,7 @@ span{
 .link{
     font-size: 30px;
     text-decoration: underline;
+    color: rgb(238, 2, 2);
 }
 .cajadescripcion{
     width: 60%;
@@ -82,10 +83,11 @@ span{
     border-color:hsl(0, 0%, 0%);
     box-shadow: 0px 12px 8px rgba(0, 0, 0, 0.7);
 }
-.active {
-    opacity: 1;
-    transform: translateX(0);
-}
+.active-BTN {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    /* Otras propiedades de animación si las necesitas */
+  }  
 .descripcion {
     transition: opacity 0.5s ease, transform 0.5s ease;
   }

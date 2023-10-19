@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import './Homem.css';
 
 function Homem() {
@@ -19,19 +19,36 @@ function Homem() {
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [btnlistener, setBtnListener] = useState(false);
 
   const goToPrevious = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? slides.length - 1 : prevIndex - 1
-    );
+    setBtnListener(true);
+    setTimeout(() => {
+      setCurrentIndex((prevIndex) =>
+        prevIndex === 0 ? slides.length - 1 : prevIndex - 1
+      );
+    }, 500); // Retraso de 1 segundo
+    setTimeout(() => {
+      setBtnListener(false);
+    }, 500); // Cambia btnListener de nuevo a false después de 2 segundos
   };
 
   const goToNext = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === slides.length - 1 ? 0 : prevIndex + 1
-    );
+    setBtnListener(true);
+    setTimeout(() => {
+      setCurrentIndex((prevIndex) =>
+        prevIndex === slides.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 500); // Retraso de 1 segundo
+    setTimeout(() => {
+      setBtnListener(false);
+    }, 500); // Cambia btnListener de nuevo a false después de 2 segundos
   };
 
+  
+
+
+  console.log(currentIndex);
   return (
     <>
       <main className="main">
@@ -42,7 +59,7 @@ function Homem() {
           <h1 className="titulo">¿Estás preparado para no dejar ninguna tarea sin resolver?</h1>
         </div>
         <div className="descripcion2">
-              <div className={`descripcion ${currentIndex !== 0 ? "active" : ""}`}>
+              <div className={`descripcion ${btnlistener ? "active-BTN" : ""}`}>
                   <div className="cajadescripcion">
                     <p className="descripcionP">{slides[currentIndex].description}</p>
                     <a href="/Loginandregister" className="link">{slides[currentIndex].link}</a>
@@ -51,7 +68,7 @@ function Homem() {
               <img
                     src={slides[currentIndex].image}
                     alt={slides[currentIndex].title}
-                    className={`carousel__image ${currentIndex !== 0 ? "active" : ""}`}
+                    className={`carousel__image ${btnlistener ? "active-BTN" : ""}`}
                   />
               </div>
             </div>
