@@ -161,6 +161,11 @@
     text-decoration: line-through;
     text-decoration-color: rgb(255, 0, 0);
 }
+
+
+.btn-edit-clear-completed{
+  display: flex;
+}
   
   /* Media query para pantallas pequeñas */
   @media (max-width: 768px) {
@@ -190,6 +195,10 @@
     .New-to-do-liststyle-description{
         margin-top: 10px;
     }
+    .btn-edit-clear-completed{
+      flex-direction: column;
+    }
+      
   }
   @media (max-width: 500px) {
     .todo-list-item h3{
@@ -206,4 +215,20 @@
       font-size: 15px;
     }
   }
+
+  .modal-anuncement-description-alert{
+    font-family: 'Open Sans', sans-serif;
+    margin-top: 10px;
+    text-align: center;
+    background-color:hsla(0, 100%, 50%, 0.897);
+    border: 2px solid rgb(148, 214, 211);
+    width: 290px;
+    border-radius: 20px;
+}
+.modal-anuncement-alert{
+  color: red;
+  font-family: 'Playpen Sans', cursive;
+  margin-top: 10px;
+  font-size: 30px;
+}
   

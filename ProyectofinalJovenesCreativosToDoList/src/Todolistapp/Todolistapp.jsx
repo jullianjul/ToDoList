@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Todolistapp.css';
 import { AiOutlineDelete } from 'react-icons/ai';
 import { BsCheckLg } from 'react-icons/bs';
+import Modal from './../Modals/Modal';
 
 export const Todolistapp = () => {
   const clearLocalStorage = () => {
@@ -112,8 +113,82 @@ export const Todolistapp = () => {
     }
   };
 
+  //funcion actualizar To do
+  const [editingIndex, setEditingIndex] = useState(-1);
+  const [editedTitle, setEditedTitle] = useState(allTodos[editingIndex]?.title || '');
+  const [editedDescription, setEditedDescription] = useState(allTodos[editingIndex]?.description || '');
+
+
+  const handleEdit = (index) => {
+  // Establece el índice de edición en el índice de la tarea que se está editando
+  setEditingIndex(index);
+
+  // Obtiene los detalles de la tarea que se está editando y establece los valores en los campos de edición
+  const todoToEdit = allTodos[index];
+  setEditedTitle(todoToEdit.title);
+  setEditedDescription(todoToEdit.description);
+};
+
+
+
+
+
+
+  const handleSaveEdit = (index) => {
+    // Crea un objeto actualizado con los valores editados
+    const updatedTodo = {
+      title: editedTitle,
+      description: editedDescription,
+    };
+  
+    // Crea una copia de la lista de tareas pendientes
+    const updatedTodoList = [...allTodos];
+    // Reemplaza la tarea original con la tarea actualizada
+    updatedTodoList[index] = updatedTodo;
+  
+    // Actualiza el estado con la nueva lista de tareas
+    setAllTodos(updatedTodoList);
+    saveTodos(updatedTodoList);
+  
+    // Restablece el índice de edición para detener la edición
+    setEditingIndex(-1);
+  };
+
+  //funciones modal
+    {/* register success functions*/}
+    const [editingModalError, SeteditingModalerror]=useState(false);
+
+    const handleModalClose = () => {
+      SeteditingModalerror(false);
+      // Habilita la interacción con la página nuevamente
+    }
+  
+    const handleContinue = () => {
+      SeteditingModalerror(false);
+    }
+    
+  
+    {/* register success functions end*/}
 
   return (
+    <> {editingModalError &&
+    <Modal
+  modalattributes={{
+    modal: '', // Reemplaza '-modal-class' con la clase que desees para el contenedor modal.
+    content: '', // Reemplaza '-content-class' con la clase que desees para el contenido modal.
+    close: '', // Reemplaza '-close-class' con la clase que desees para el botón de cierre.
+    container: '', // Reemplaza '-container-class' con la clase que desees para el contenedor de contenido.
+    anouncement: '-alert', // Reemplaza '-anouncement-class' con la clase que desees para el título.
+    description: '-alert', // Reemplaza '-description-class' con la clase que desees para la descripción.
+    button: '', // Reemplaza '-button-class' con la clase que desees para el botón.
+    anuncementtitle:'¡Ten cuidado!',
+    descriptiontext:'No puedes borrar, editar, marcar o como completada una tarea que estas editando', //  TEXTO DENTRO DEL MODAL
+    buttontext:'Ok'
+  }}
+  onClose={handleModalClose}
+  onContinue={handleContinue}
+/> }
+
     <div className="container-ALL">
       <h1 className='Todolisttitle'>Tu lista maestra</h1>
 
@@ -157,35 +232,63 @@ export const Todolistapp = () => {
           </button>
           <button
             className={`secondaryBtn ${isCompletedScreen === true && 'active'}`}
-            onClick={() => setIsCompletedScreen (true)}
+            onClick={() => setIsCompletedScreen(true)}
           >
             Finalizadas
           </button>
         </div>
         <div className="todo-list">
 
-          {isCompletedScreen === false &&
-            allTodos.map ((item, index) => (
-              <div className="todo-list-item" key={index}>
+        {isCompletedScreen === false &&
+  allTodos.map((item, index) => (
+    <div className="todo-list-item" key={index}>
+      {editingIndex === index ? (
+                // Mostrar el formulario de edición
+                <div>
+                  <input
+                    type="text"
+                    value={editedTitle}
+                    onChange={(e) => setEditedTitle(e.target.value)}
+                  />
+                  <input
+                    type="text"
+                    value={editedDescription}
+                    onChange={(e) => setEditedDescription(e.target.value)}
+                  />
+                  <button onClick={() => handleSaveEdit(index)}>Guardar</button>
+                </div>
+              ) : (
+                // Mostrar el título y la descripción
                 <div>
                   <h3>{item.title}</h3>
                   <p>{item.description}</p>
-
                 </div>
-                <div>
-                  <AiOutlineDelete
-                    title="Delete?"
-                    className="icon"
-                    onClick={() => handleToDoDelete (index)}
-                  />
-                  <BsCheckLg
-                    title="Completed?"
-                    className=" check-icon"
-                    onClick={() => handleComplete (index)}
-                  />
-                </div>
+              )}
+              <div className='btn-edit-clear-completed'>
+                <button
+                  title="Editar"
+                  className="edit-icon"
+                  //comprueba si seteditingmode esta activado, si esta activado el usuario no podra realizar las
+                  //funciones normales que se darian si estuviese desactivado en la tarea que esta editando
+                  //el resto de tareas actuaran normal
+                  onClick={()=>editingIndex===index?(SeteditingModalerror(true)):(handleEdit(index))}
+                >
+                  Editar
+                </button>
+                <AiOutlineDelete
+                  title="Delete?"
+                  className="icon"
+                  onClick={() =>editingIndex===index?(SeteditingModalerror(true)):( handleToDoDelete(index))}
+                />
+                <BsCheckLg
+                  title="Completed?"
+                  className="check-icon"
+                  onClick={() =>editingIndex===index?(SeteditingModalerror(true)):(  handleComplete(index))}
+                />
               </div>
-            ))}
+            </div>
+          ))
+        }
 
           {isCompletedScreen === true &&
             completedTodos.map ((item, index) => (
@@ -209,5 +312,40 @@ export const Todolistapp = () => {
         <button onClick={clearLocalStorage} className='cerrarsesion-btn'>Cerrar Sesión</button>
         </div>
     </div>
+    </>
   );
 }
+
+
+
+{/*DOCUMENTACION DEL CODIGO:
+
+Importaciones: Importa las bibliotecas y componentes necesarios, como React y algunos iconos.
+
+Función Todolistapp: Define el componente Todolistapp. Aquí se encuentra toda la funcionalidad de la lista de tareas.
+
+clearLocalStorage: Una función que borra los datos del usuario almacenados en el almacenamiento local y redirige al usuario
+ a la página de inicio de sesión (Loginandregister).
+
+Estado: Se definen varios estados utilizando el hook useState para manejar los datos de la aplicación, como el usuario que ha
+ iniciado sesión, todas las tareas, nuevas tareas, tareas completadas y si la pantalla muestra tareas completadas o pendientes.
+
+handleAddNewToDo: Agrega una nueva tarea a la lista de tareas. Crea un objeto con el título y la descripción de la nueva tarea, lo agrega a la lista de tareas y luego guarda los cambios en el almacenamiento local.
+
+saveTodos y saveCompletedTodos: Funciones para guardar la lista de tareas y la lista de tareas completadas en el almacenamiento
+ local. Utilizan los datos del usuario para almacenar información específica del usuario.
+
+Hook useEffect: Se utiliza para cargar los datos del usuario y sus tareas cuando el componente se monta. También se encarga de
+ inicializar las listas de tareas y tareas completadas, o de crearlas si aún no existen.
+
+handleToDoDelete y handleCompletedTodoDelete: Eliminan una tarea de la lista de tareas o la lista de tareas completadas, 
+respectivamente. Actualizan el estado y guardan los cambios en el almacenamiento local.
+
+handleComplete: Marca una tarea como completada. Agrega la tarea a la lista de tareas completadas, la elimina de la lista de 
+tareas pendientes y guarda los cambios en el almacenamiento local. También registra la fecha y hora en que se completó la tarea.
+
+Renderizado: El componente se renderiza con la interfaz de usuario de la lista de tareas. Incluye campos para ingresar el título
+ y la descripción de una nueva tarea, botones para cambiar entre la vista de tareas pendientes y completadas, y listas de tareas 
+ pendientes y completadas. También hay botones para eliminar tareas y marcarlas como completadas. El botón "Cerrar Sesión" permite al usuario cerrar la sesión y eliminar sus datos del almacenamiento local.
+
+*/}

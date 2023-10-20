@@ -45,8 +45,9 @@ span{
     backdrop-filter: blur(2px);
 }
 .descripcion{
+    width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 }
 .link{
@@ -60,9 +61,9 @@ span{
     background-color: hsl(64, 100%, 70%);
     border-color: hsl(67, 100%, 98%);
     border-radius: 20px;
-    margin-left: 30px;
     height: 300px;
     display: flex;
+    margin-left: 30px;
     justify-content: center;
     align-items: center;
     text-align: center;
@@ -73,9 +74,15 @@ span{
     font-size: 20px;
     font-family: 'Ubuntu', sans-serif;
 }
+.ImgTodolist{
+    width: 40%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .carousel__image{
-    width: 400px;
-    margin-right: 40px;
+    width: 70%;
     border-radius: 20px;
     margin-left: 10px;
     margin-top: 10px;
@@ -139,5 +146,9 @@ span{
     }
     .main{
         height: 150vh;
+    }
+    .ImgTodolist{
+        height: 50%;
+        width: 100%;
     }
 }

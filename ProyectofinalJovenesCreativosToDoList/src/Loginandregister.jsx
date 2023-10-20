@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './LoginAndRegister.css';
 import Input from './input';
 import { Register } from './licomponents/Register';
-
+import Modal from './Modals/Modal';
 
 const LoginAndRegister= () => {
   {/*inicio animación*/}
@@ -113,7 +113,12 @@ const LoginAndRegister= () => {
       }
     }
   }
+
+
   
+
+
+
 
   function handleSubmit(){
     let account = {Email, password}
@@ -279,19 +284,59 @@ const LoginAndRegister= () => {
   }
   
   {/*fin funciones register*/}
+  {/* register success functions*/}
 
 
+  const handleModalClose = () => {
+    setRegisterSuccess(false);
+    // Habilita la interacción con la página nuevamente
+  }
+
+  const handleContinue = () => {
+    setRegisterSuccess(false);
+    let ac = { EmailR, passwordR,NameR, username};
+    let account = JSON.stringify(ac);
+    localStorage.setItem('account', account);
+    localStorage.setItem('islog', true);
+    setIsLogin(true);
+    setHasError(false);
+
+    console.log('Usuario logueado:', NameR);
+
+
+    window.location.href = '/Aplication';
+    // Lógica para continuar, si es necesario
+    // Por ejemplo, redirigir a otra página
+  }
+  
+
+  {/* register success functions end*/}
 
   return (
+    <>
+    {registersuccess &&         <Modal
+  modalattributes={{
+    modal: '', // Reemplaza '-modal-class' con la clase que desees para el contenedor modal.
+    content: '', // Reemplaza '-content-class' con la clase que desees para el contenido modal.
+    close: '', // Reemplaza '-close-class' con la clase que desees para el botón de cierre.
+    container: '', // Reemplaza '-container-class' con la clase que desees para el contenedor de contenido.
+    anouncement: '', // Reemplaza '-anouncement-class' con la clase que desees para el título.
+    description: '', // Reemplaza '-description-class' con la clase que desees para la descripción.
+    button: '', // Reemplaza '-button-class' con la clase que desees para el botón "Continuar".
+    anuncementtitle:'¡Bienvenido!',
+    descriptiontext:'Te has registrado, dale click a "continuar" para iniciar sesión', //  TEXTO DENTRO DEL MODAL
+    buttontext:'Continuar'
+  }}
+  onClose={handleModalClose}
+  onContinue={handleContinue}
+/>}
     <div className="LoginAndRegister">
+
       {Emailalreadyregister &&
       <h1 className='Register-error'>Ya hay una cuenta con ese email, inicie sesión porfavor.</h1>
       }
       {Useralreadyregister &&
       <h1 className='Register-error'>Lo sentimos, parece que ya hay un usuario registrado con ese nombre de usuario, ingrese otro porfavor.</h1>
-      }
-      {registersuccess &&
-      <h1 className='userloged'>felicitaciones, te has registrado, ahora puedes iniciar sesión.</h1>
       }
       {hasErrorR &&
           <h1 className='Register-error'>Porfavor, llene bien los campos para poder ser registrado.</h1>
@@ -391,6 +436,7 @@ const LoginAndRegister= () => {
           </div>
         </main>
     </div>
+    </>
   );
 }
 

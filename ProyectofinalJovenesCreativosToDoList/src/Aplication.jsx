@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './Aplication.css'
 import { Todolistapp } from './Todolistapp/Todolistapp';
 
+
 const Aplication = () => {
   const storedAccount = localStorage.getItem('account');
   const user = JSON.parse(storedAccount);
