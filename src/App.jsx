@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import LoginAndRegister from './LoginAndRegister';
+import LoginandRegister from './Loginandregister';
 import './App.css';
 import Homem from './Homem';
 import Input from './input';
@@ -84,7 +84,7 @@ function App() {
       </div>
       <Routes>
         <Route path='/ToDoList' element={<Home />}/>
-        <Route path='/ToDoList/loginandregister' element={<LoginAndRegister/>} />
+        <Route path='/ToDoList/loginandregister' element={<LoginandRegister/>} />
         <Route path='/ToDoList/aplication' element={<Aplication/>} />
       </Routes>
     </div>

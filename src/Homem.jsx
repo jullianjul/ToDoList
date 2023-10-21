@@ -64,7 +64,7 @@ function Homem() {
               <div className={`descripcion ${btnlistener ? "active-BTN" : ""}`}>
                   <div className="cajadescripcion">
                     <p className="descripcionP">{slides[currentIndex].description}</p>
-                    <a href="/Loginandregister" className="link">{slides[currentIndex].link}</a>
+                    <a href="/ToDoList/loginandregister" className="link">{slides[currentIndex].link}</a>
                   </div>
               <div className="ImgTodolist">
               <img
