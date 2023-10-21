@@ -3,6 +3,8 @@ import './LoginAndRegister.css';
 import Input from './input';
 import { Register } from './licomponents/Register';
 import Modal from './Modals/Modal';
+import { useDarkMode } from './Modals/DarkModeContext';
+
 
 const LoginAndRegister= () => {
   {/*inicio animación*/}
@@ -312,6 +314,12 @@ const LoginAndRegister= () => {
 
   {/* register success functions end*/}
 
+  //darkmode
+  const { darkmode} = useDarkMode();
+  const Background=()=>{
+    return <main className={darkmode?'Backgrounddark':'Background'}></main>
+  }
+
   return (
     <>
     {registersuccess &&         <Modal
@@ -330,6 +338,9 @@ const LoginAndRegister= () => {
   onClose={handleModalClose}
   onContinue={handleContinue}
 />}
+
+<Background />
+
     <div className="LoginAndRegister">
 
       {Emailalreadyregister &&

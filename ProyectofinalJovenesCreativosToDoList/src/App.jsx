@@ -6,6 +6,8 @@ import Homem from './Homem';
 import Input from './input';
 import Aplication from './Aplication';
 import { Li } from './licomponents/li';
+import DarkModeButton from './Modals/Darkmode';
+import { useDarkMode } from './Modals/DarkModeContext';
 
 function Home() {
 
@@ -49,6 +51,7 @@ function App() {
     const username = user ? user.username : '';
     const [usershow, setUserShow]= useState('');
 
+
     useEffect(() => {
       if(username.length>10){
         setUserShow(username.substring(0, 10) + '...')
@@ -56,10 +59,11 @@ function App() {
         setUserShow(username)
       }
     }, []);
+    const { darkmode, toggleDarkMode } = useDarkMode();
 
   return (
     <div className='App'>
-      <div className='header'>
+      <div className={darkmode?'headerdark':'header'}>
       <div className='perfiltitulos'>
       {isloguin ? (
         <>
@@ -72,9 +76,9 @@ function App() {
       </div>
         <nav className='Cajanav'>
           <ul className='Navs'>
-            <Li className='Navs_li' link='/' content='Home'/>
-            <Li className='Navs_li' link='/SearchPage' content='SearchPage'/>
-            <Li className={isloguin ? 'Navs_log_user' : 'Navs_li'} link={isloguin ? '/Aplication' : '/Loginandregister'} content={isloguin ? 'Ingresar' : 'Registrarse/iniciar'}/>
+            <Li className={darkmode?'Navs_lidark':'Navs_li'} link='/' content='Home'/>
+            <Li className={isloguin ? (darkmode?'Navs_log_userdark':'Navs_log_user') : (darkmode?'Navs_lidark':'Navs_li')} link={isloguin ? '/Aplication' : '/Loginandregister'} content={isloguin ? 'Ingresar' : 'Registrarse/iniciar'}/>
+            <DarkModeButton/>
           </ul>
         </nav> 
       </div>

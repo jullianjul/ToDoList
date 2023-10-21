@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import './Homem.css';
+import { useDarkMode } from "./Modals/DarkModeContext";
 
 function Homem() {
   const slides = [
@@ -48,17 +49,18 @@ function Homem() {
   
 
 
-  console.log(currentIndex);
+  const { darkmode} = useDarkMode();
+
   return (
     <>
-      <main className="main">
+      <main className={darkmode?'maindark':'main'}>
         <div className="title">
           <h1 className="titulo">
-            Bienvenido a <span className="titlebrand">Tu Lista Maestra</span>
+            Bienvenido a <span className={darkmode?'titlebranddark':'titlebrand'}>Tu Lista Maestra</span>
           </h1>
           <h1 className="titulo">¿Estás preparado para no dejar ninguna tarea sin resolver?</h1>
         </div>
-        <div className="descripcion2">
+        <div className={darkmode?'descripcion2dark':'descripcion2'}>
               <div className={`descripcion ${btnlistener ? "active-BTN" : ""}`}>
                   <div className="cajadescripcion">
                     <p className="descripcionP">{slides[currentIndex].description}</p>

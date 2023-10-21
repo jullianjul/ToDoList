@@ -5,6 +5,26 @@
   text-decoration: none;
   font-family: 'Roboto', sans-serif;
 }
+.Background{
+  margin-top: 0;
+  height: 100vh;
+  background-image: url(./../img/Fondologinregister.jpg);
+  position: absolute;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+}
+.Backgrounddark{
+  margin-top: 0;
+  height: 100vh;
+  background-image: url(./../img/Fondoregisterdarkmode.jpg);
+  position: absolute;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+}
 .LoginAndRegister{
   z-index: 0;
 }
@@ -91,6 +111,7 @@ main{
   width: 100%;
   padding: 80px 20px;
   background: white;
+  border: 2px solid black;
   position: absolute;
   border-radius: 20px;
 }
@@ -170,7 +191,12 @@ main{
   main{
       margin-top: 50px;
   }
-
+  .Background{
+    height: 140vh;
+  }
+  .Backgrounddark{
+    height: 140vh;
+  }
   .caja__trasera{
       max-width: 350px;
       height: 300px;

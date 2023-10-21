@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './Todolistapp.css';
 import { AiOutlineDelete } from 'react-icons/ai';
 import { BsCheckLg } from 'react-icons/bs';
 import Modal from './../Modals/Modal';
+import { useDarkMode } from '../Modals/DarkModeContext';
 
 export const Todolistapp = () => {
   const clearLocalStorage = () => {
@@ -133,7 +134,6 @@ export const Todolistapp = () => {
 
 
 
-
   const handleSaveEdit = (index) => {
     // Crea un objeto actualizado con los valores editados
     const updatedTodo = {
@@ -170,11 +170,14 @@ export const Todolistapp = () => {
   
     {/* register success functions end*/}
 
+    //darkmode:
+    const { darkmode, toggleDarkMode } = useDarkMode();
+
   return (
     <> {editingModalError &&
     <Modal
   modalattributes={{
-    modal: '', // Reemplaza '-modal-class' con la clase que desees para el contenedor modal.
+    modal: '-alert', // Reemplaza '-modal-class' con la clase que desees para el contenedor modal.
     content: '', // Reemplaza '-content-class' con la clase que desees para el contenido modal.
     close: '', // Reemplaza '-close-class' con la clase que desees para el botón de cierre.
     container: '', // Reemplaza '-container-class' con la clase que desees para el contenedor de contenido.
@@ -189,10 +192,11 @@ export const Todolistapp = () => {
   onContinue={handleContinue}
 /> }
 
-    <div className="container-ALL">
+    <div className={darkmode?"container-ALLdark":"container-ALL"}>
+      <div className='espace'></div>
       <h1 className='Todolisttitle'>Tu lista maestra</h1>
 
-      <div className="todo-wrapper">
+      <div className={darkmode?"todo-wrapperdark":"todo-wrapper"}>
 
         <div className="todo-input">
           <div className="todo-input-item">
@@ -202,6 +206,7 @@ export const Todolistapp = () => {
               value={newTodoTitle}
               onChange={e => setNewTodoTitle (e.target.value)}
               placeholder="TITULO"
+              className={darkmode?'inputtittledark':'inputtittle'}
             />
           </div>
           <div className="todo-input-item">
@@ -211,11 +216,12 @@ export const Todolistapp = () => {
               value={newDescription}
               onChange={e => setNewDescription (e.target.value)}
               placeholder="DESCRIPCION"
+              className={darkmode?'inputtittledark':'inputtittle'}
             />
           </div>
           <div className="todo-input-item">
             <button
-              className="primary-btn"
+              className={darkmode?"primary-btndark":"primary-btn"}
               type="button"
               onClick={handleAddNewToDo}
             >
@@ -223,15 +229,15 @@ export const Todolistapp = () => {
             </button>
           </div>
         </div>
-        <div className="btn-area">
+        <div className={darkmode?"btn-areadark":"btn-area"}>
           <button
-            className={`secondaryBtn ${isCompletedScreen === false && 'active'}`}
+            className={`${darkmode?"secondaryBtndark":"secondaryBtn"} ${isCompletedScreen === false && 'active'}`}
             onClick={() => setIsCompletedScreen (false)}
           >
             Pendientes
           </button>
           <button
-            className={`secondaryBtn ${isCompletedScreen === true && 'active'}`}
+            className={`${darkmode?"secondaryBtndark":"secondaryBtn"} ${isCompletedScreen === true && 'active'}`}
             onClick={() => setIsCompletedScreen(true)}
           >
             Finalizadas
@@ -241,33 +247,42 @@ export const Todolistapp = () => {
 
         {isCompletedScreen === false &&
   allTodos.map((item, index) => (
-    <div className="todo-list-item" key={index}>
+    <div className={darkmode?"todo-list-itemdark":"todo-list-item"} key={index}>
       {editingIndex === index ? (
                 // Mostrar el formulario de edición
-                <div>
+                <div className='edit-container'>
+                  <div className='edit-container__inputs'>
+                    <h5 className={darkmode?'tittleeditdark':'tittleedit'}>titulo:</h5>
                   <input
                     type="text"
                     value={editedTitle}
                     onChange={(e) => setEditedTitle(e.target.value)}
+                    className={darkmode?'inputeditdark':'inputedit'}
                   />
+                  
+                  </div>
+                  <div className='edit-container__inputs'>
+                  <h5 className={darkmode?'tittleeditdark':'tittleedit'}>descripción:</h5>
                   <input
                     type="text"
                     value={editedDescription}
                     onChange={(e) => setEditedDescription(e.target.value)}
+                    className={darkmode?'inputeditdark':'inputedit'}
                   />
-                  <button onClick={() => handleSaveEdit(index)}>Guardar</button>
+                  </div>
+                  <button className={darkmode?"edit-icondark":"edit-icon"} onClick={() => handleSaveEdit(index)}>Guardar</button>
                 </div>
               ) : (
                 // Mostrar el título y la descripción
                 <div>
-                  <h3>{item.title}</h3>
-                  <p>{item.description}</p>
+                  <h3 className={darkmode?'Todotitledark':'Todotitle'}>{item.title}</h3>
+                  <p className={darkmode?'Tododesdark':'Tododes'}>{item.description}</p>
                 </div>
               )}
               <div className='btn-edit-clear-completed'>
                 <button
                   title="Editar"
-                  className="edit-icon"
+                  className={darkmode?"edit-icondark":"edit-icon"}
                   //comprueba si seteditingmode esta activado, si esta activado el usuario no podra realizar las
                   //funciones normales que se darian si estuviese desactivado en la tarea que esta editando
                   //el resto de tareas actuaran normal
@@ -277,7 +292,7 @@ export const Todolistapp = () => {
                 </button>
                 <AiOutlineDelete
                   title="Delete?"
-                  className="icon"
+                  className={darkmode?'icondark':"icon"}
                   onClick={() =>editingIndex===index?(SeteditingModalerror(true)):( handleToDoDelete(index))}
                 />
                 <BsCheckLg
@@ -292,15 +307,15 @@ export const Todolistapp = () => {
 
           {isCompletedScreen === true &&
             completedTodos.map ((item, index) => (
-              <div className="todo-list-item" key={index}>
-                <div>
-                  <h3 className='completed-task'>{item.title}</h3>
-                  <p>{item.description}</p>
-                  <p> <i>Completado el: {item.completedOn}</i></p>
+              <div className={darkmode?"todo-list-itemdark":"todo-list-item"} key={index}>
+                <div className={darkmode?'Todocompleteddark':'Todocompleted'}>
+                  <h3 className={darkmode?'completed-taskdark':'completed-task'}>{item.title}</h3>
+                  <p className={darkmode?'Tododesdark':'Tododes'}>{item.description}</p>
+                  <p className={darkmode?'Tododesdark':'Tododes'}> <i>Completado el: {item.completedOn}</i></p>
                 </div>
                 <div>
                   <AiOutlineDelete
-                    className="icon"
+                    className={darkmode?'icondark':"icon"}
                     onClick={() => handleCompletedTodoDelete (index)}
                   />
                 </div>
