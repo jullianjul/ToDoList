@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './LoginAndRegister.css';
+import './Loginandregister.css';
 import Input from './input';
 import { Register } from './licomponents/Register';
 import Modal from './Modals/Modal';
