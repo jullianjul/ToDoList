@@ -5,7 +5,7 @@ import './App.css';
 import Homem from './Homem';
 import Input from './input';
 import Aplication from './Aplication';
-import { Li } from './licomponents/li';
+import { Li } from './licomponents/Li';
 import DarkModeButton from './Modals/Darkmode';
 import { useDarkMode } from './Modals/DarkModeContext';
 
