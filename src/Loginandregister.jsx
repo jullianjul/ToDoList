@@ -146,7 +146,7 @@ const LoginAndRegister= () => {
       console.log('Usuario logueado:', NameR);
 
   
-      window.location.href = '/Aplication';
+      window.location.href = '/ToDoList/Aplication';
     } else {
       setIsLogin(false);
       setHasError(true);
@@ -306,7 +306,7 @@ const LoginAndRegister= () => {
     console.log('Usuario logueado:', NameR);
 
 
-    window.location.href = '/Aplication';
+    window.location.href = '/ToDoList/aplication';
     // Lógica para continuar, si es necesario
     // Por ejemplo, redirigir a otra página
   }

@@ -17,7 +17,7 @@ const Aplication = () => {
 
   // Función que se ejecutará después de la cuenta regresiva
   const funcionDemorada = () => {
-    window.location.href = '/Loginandregister';
+    window.location.href = '/ToDoList/loginandregister';
   };
 
   useEffect(() => {

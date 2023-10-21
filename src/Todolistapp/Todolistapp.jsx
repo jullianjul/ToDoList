@@ -9,7 +9,7 @@ export const Todolistapp = () => {
   const clearLocalStorage = () => {
     localStorage.removeItem('account');
     localStorage.removeItem('islog');
-    window.location.href = '/Loginandregister';
+    window.location.href = '/ToDoList/loginandregister';
   };
 
   const [loggedInUser, setLoggedInUser] = useState(null);
