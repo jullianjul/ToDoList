@@ -73,11 +73,12 @@ function Homem() {
                     <a onClick={handleClick} className="link">{slides[currentIndex].link}</a>
                   </div>
               <div className="ImgTodolist">
-              <img
+              <div
                     src="./../img/hacertodo.jpg"
                     alt={slides[currentIndex].title}
                     className={`carousel__image${currentIndex} ${btnlistener ? "active-BTN" : ""}`}
-                  />
+                  >
+                  </div>
               </div>
             </div>
             <div className="Botonesdenavegacion">
