@@ -149,6 +149,9 @@
 .infoflechas{
     font-size: 10px;
 }
+.link{
+    cursor: pointer;
+}
 @media(max-width:1000px){
     .descripcion2{
         flex-direction: column;
