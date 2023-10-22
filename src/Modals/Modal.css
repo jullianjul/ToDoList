@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&family=Playpen+Sans:wght@800&display=swap');
 .modal{
     background-color: hsla(180, 1%, 26%, 0.5);
-    height: 92vh;
-    width: 100vw;
+    height: 100vh;
+    width: 100%;
     position: absolute;
     z-index: 2;
     display: flex;
@@ -61,4 +61,10 @@
 .modal-button:hover{
     border-color: rgb(255, 255, 255);
     box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.7);
+}
+
+@media screen and (max-width: 850px){
+    .modal{
+        height: 140vh;
+    }
 }

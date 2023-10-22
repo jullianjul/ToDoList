@@ -227,3 +227,19 @@ main{
   background-color: #46A2FD;
   color: white;
 }
+.modal-anuncementuseroremail_alert{
+  color: red;
+  font-family: 'Playpen Sans', cursive;
+  font-size: 30px;
+  text-align: center;
+}
+.modal-anuncement-descriptionuseroremail_alert_description{
+  font-family: 'Open Sans', sans-serif;
+  margin-top: 10px;
+  text-align: center;
+  background-color:hsla(7, 100%, 51%, 0.63);
+  border: 2px solid rgb(255, 0, 0);
+  width: 290px;
+  border-radius: 20px;
+}
+

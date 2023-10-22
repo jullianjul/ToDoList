@@ -266,6 +266,7 @@ const LoginAndRegister= () => {
       // El correo electrónico ya está registrado, muestra un mensaje de error
       console.log('El correo electrónico ya está registrado');
       setEmailAlreadyRegister(true);
+      console.log(Emailalreadyregister)
       return;
     }
     if (isUserAlreadyExists) {
@@ -293,6 +294,10 @@ const LoginAndRegister= () => {
     setRegisterSuccess(false);
     // Habilita la interacción con la página nuevamente
   }
+  const handleModalCloseeu = () => {
+    setEmailAlreadyRegister(false);
+    setUserAlreadyRegister(false);
+  }
 
   const handleContinue = () => {
     setRegisterSuccess(false);
@@ -309,6 +314,10 @@ const LoginAndRegister= () => {
     window.location.href = '/ToDoList/aplication';
     // Lógica para continuar, si es necesario
     // Por ejemplo, redirigir a otra página
+  }
+  const handleContinueeu = () => {
+    setEmailAlreadyRegister(false);
+    setUserAlreadyRegister(false);
   }
   
 
@@ -340,9 +349,26 @@ const LoginAndRegister= () => {
 />}
 
 <Background />
+{(Emailalreadyregister===true || Useralreadyregister===true) &&         (<Modal
+  modalattributes={{
+    modal: '', // Reemplaza '-modal-class' con la clase que desees para el contenedor modal.
+    content: '', // Reemplaza '-content-class' con la clase que desees para el contenido modal.
+    close: '', // Reemplaza '-close-class' con la clase que desees para el botón de cierre.
+    container: '', // Reemplaza '-container-class' con la clase que desees para el contenedor de contenido.
+    anouncement: 'useroremail_alert', // Reemplaza '-anouncement-class' con la clase que desees para el título.
+    description: 'useroremail_alert_description', // Reemplaza '-description-class' con la clase que desees para la descripción.
+    button: '', // Reemplaza '-button-class' con la clase que desees para el botón "Continuar".
+    anuncementtitle:Emailalreadyregister==true && Useralreadyregister==true?('¡Usuario y Email en uso!'):(Emailalreadyregister==true?('¡Email en uso!'):('¡Usuario en uso!')),
+    descriptiontext:Emailalreadyregister==true && Useralreadyregister==true?('Su usuario y su email ya estan registrados en la plataforma,porfavor inicie sesión'):(Emailalreadyregister==true?('Su email ya esta ingresado en nuestra plataforma, porfavor inicie sesión'):('Nombre de usuario repetido, porfavor intente con uno nuevo')), //  TEXTO DENTRO DEL MODAL
+    buttontext:'Ok'
+  }}
+  onClose={handleModalCloseeu}
+  onContinue={handleContinueeu}
+/>)
 
+
+}
     <div className="LoginAndRegister">
-
       {Emailalreadyregister &&
       <h1 className='Register-error'>Ya hay una cuenta con ese email, inicie sesión porfavor.</h1>
       }

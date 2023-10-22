@@ -5,7 +5,7 @@ import { AiFillCloseCircle } from 'react-icons/ai';
 const Modal = ({ onClose, onContinue, modalattributes }) => {
   return (
     <div className={`modal${modalattributes.modal}`}>
-      <div className={`modal-content ${modalattributes.content}`}>
+      <div className={`modal-content${modalattributes.content}`}>
         <span className={`close-simbol ${modalattributes.close}`} onClick={onClose}>
           <AiFillCloseCircle />
         </span>
