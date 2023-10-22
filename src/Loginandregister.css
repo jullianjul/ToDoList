@@ -40,56 +40,9 @@ main{
   max-width: 800px;
   margin: auto;
   position: relative;
-}
-
-.caja__trasera{
-  width: 100%;
-  padding: 10px 20px;
   display: flex;
+  height: 60vh;
   justify-content: center;
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  background-color: rgba(0, 128, 255, 0.5);
-
-}
-
-.caja__trasera div{
-  margin: 100px 40px;
-  color: white;
-  transition: all 500ms;
-}
-
-
-.caja__trasera div p,
-.caja__trasera button{
-  margin-top: 30px;
-}
-
-.caja__trasera div h3{
-  font-weight: 400;
-  font-size: 26px;
-}
-
-.caja__trasera div p{
-  font-size: 16px;
-  font-weight: 300;
-}
-
-.caja__trasera button{
-  padding: 10px 40px;
-  border: 2px solid #fff;
-  font-size: 14px;
-  background: transparent;
-  font-weight: 600;
-  cursor: pointer;
-  color: white;
-  outline: none;
-  transition: all 300ms;
-}
-
-.caja__trasera button:hover{
-  background: #fff;
-  color: #46A2FD;
 }
 
 /*Formularios*/
@@ -100,28 +53,45 @@ main{
   width: 100%;
   max-width: 380px;
   position: relative;
-  top: -185px;
   left: 10px;
-
-  /*La transicion va despues del codigo JS*/
-  transition: left 500ms cubic-bezier(0.175, 0.885, 0.320, 1.275);
+}
+.invisible{
+  display: none;
+}
+.visible{
+  display: block;
 }
 
-.contenedor__login-register form{
+.formulario_{
   width: 100%;
   padding: 80px 20px;
-  background: white;
+  background: rgb(255, 255, 255);
+  border: 2px solid black;
+  position: absolute;
+  border-radius: 20px;
+}
+.formulario_dark{
+  width: 100%;
+  padding: 80px 20px;
+  background: rgb(53, 52, 52);
   border: 2px solid black;
   position: absolute;
   border-radius: 20px;
 }
 
-.contenedor__login-register form h2{
+.formtitle{
   font-size: 30px;
   text-align: center;
   margin-bottom: 20px;
   color: #46A2FD;
 }
+.formtitledark{
+  font-size: 30px;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #fdbd46;
+}
+
 
 .contenedor__login-register form input{
   width: 100%;
@@ -148,16 +118,6 @@ main{
   outline: none;
 }
 
-
-
-
-.formulario__login{
-  opacity: 1;
-  display: block;
-}
-.formulario__register{
-  display: none;
-}
 .label-error{
   color: red;
 }
@@ -186,6 +146,47 @@ main{
   background-color: hsla(125, 53%, 53%, 0.5);
 }
 
+.Linkstoforms{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.linktoform{
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 20px;
+  color: blue;
+}
+.linktoform:hover{
+  color: rgb(104, 104, 245);
+}
+.linktoformdark{
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 20px;
+  color: rgb(255, 255, 255);
+}
+.linktoformdark:hover{
+  color: rgb(172, 172, 172);
+}
+
+.botonentrar{
+  cursor: pointer;
+  background-color: #46A2FD;
+  color: white;
+}
+.botonentrar:hover{
+  background-color: #8abff3;
+}
+.botonentrardark{
+  cursor: pointer;
+  background-color: #fdbd46;
+  color: white;
+}
+.botonentrardark:hover{
+  background-color:#f5c772 ;
+}
+
 @media screen and (max-width: 850px){
 
   main{
@@ -197,35 +198,6 @@ main{
   .Backgrounddark{
     height: 140vh;
   }
-  .caja__trasera{
-      max-width: 350px;
-      height: 300px;
-      flex-direction: column;
-      margin: auto;
-  }
-
-  .caja__trasera div{
-      margin: 0px;
-      position: absolute;
-  }
-
-
-  /*Formularios*/
-
-  .contenedor__login-register{
-      top: -10px;
-      left: -5px;
-      margin: auto;
-  }
-
-  .contenedor__login-register form{
-      position: relative;
-  }
-}
-.botonentrar{
-  cursor: pointer;
-  background-color: #46A2FD;
-  color: white;
 }
 .modal-anuncementuseroremail_alert{
   color: red;
