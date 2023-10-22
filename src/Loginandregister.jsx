@@ -4,7 +4,7 @@ import Input from './input';
 import { Register } from './licomponents/Register';
 import Modal from './Modals/Modal';
 import { useDarkMode } from './Modals/DarkModeContext';
-
+import { useNavigate } from "react-router-dom";
 
 const LoginAndRegister= () => {
   {/*inicio animación*/}
@@ -21,7 +21,7 @@ const LoginAndRegister= () => {
     
     if (isLogged === 'true') {
       // Si está registrado, redirige a la página '/Aplication'
-      window.location.href = '/Aplication';
+      navigate("/ToDoList/Aplication");
     }
 
 
@@ -86,6 +86,7 @@ const LoginAndRegister= () => {
     };
   }, []);
   {/*Fin animación*/}
+  const navigate = useNavigate();
 
   {/*recibidor de parametros*/}
   {/* parametros login*/}
@@ -146,7 +147,7 @@ const LoginAndRegister= () => {
       console.log('Usuario logueado:', NameR);
 
   
-      window.location.href = '/ToDoList/Aplication';
+      navigate("/ToDoList/Aplication");
     } else {
       setIsLogin(false);
       setHasError(true);
@@ -311,7 +312,7 @@ const LoginAndRegister= () => {
     console.log('Usuario logueado:', NameR);
 
 
-    window.location.href = '/ToDoList/aplication';
+    navigate("/ToDoList/Aplication");
     // Lógica para continuar, si es necesario
     // Por ejemplo, redirigir a otra página
   }

@@ -76,7 +76,7 @@ function App() {
       </div>
         <nav className='Cajanav'>
           <ul className='Navs'>
-            <Li className={darkmode?'Navs_lidark':'Navs_li'} link='/' content='Home'/>
+            <Li className={darkmode?'Navs_lidark':'Navs_li'} link='/ToDoList' content='Home'/>
             <Li className={isloguin ? (darkmode?'Navs_log_userdark':'Navs_log_user') : (darkmode?'Navs_lidark':'Navs_li')} link={isloguin ? '/ToDoList/aplication' : '/ToDoList/loginandregister'} content={isloguin ? 'Ingresar' : 'Registrarse/iniciar'}/>
             <DarkModeButton/>
           </ul>

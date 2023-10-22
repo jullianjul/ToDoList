@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import './Aplication.css'
 import { Todolistapp } from './Todolistapp/Todolistapp';
+import { useNavigate } from "react-router-dom";
 
 const Aplication = () => {
+  const navigate = useNavigate();
   const storedAccount = localStorage.getItem('account');
   const user = JSON.parse(storedAccount);
   const username = user ? user.username : '';
@@ -17,7 +19,7 @@ const Aplication = () => {
 
   // Función que se ejecutará después de la cuenta regresiva
   const funcionDemorada = () => {
-    window.location.href = '/ToDoList/loginandregister';
+    navigate("/ToDoList/Loginandregister");
   };
 
   useEffect(() => {

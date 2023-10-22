@@ -4,12 +4,15 @@ import { AiOutlineDelete } from 'react-icons/ai';
 import { BsCheckLg } from 'react-icons/bs';
 import Modal from './../Modals/Modal';
 import { useDarkMode } from '../Modals/DarkModeContext';
+import { useNavigate } from "react-router-dom";
 
 export const Todolistapp = () => {
+  const navigate = useNavigate();
+
   const clearLocalStorage = () => {
     localStorage.removeItem('account');
     localStorage.removeItem('islog');
-    window.location.href = '/ToDoList/loginandregister';
+    navigate("/ToDoList/loginandregister");
   };
 
   const [loggedInUser, setLoggedInUser] = useState(null);
