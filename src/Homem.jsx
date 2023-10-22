@@ -12,7 +12,7 @@ function Homem() {
   const slides = [
     {
       description: "¿Necesitas organizar tus tareas diarias de manera sencilla y eficaz? Con nuestro ToDo List, podrás gestionar tus pendientes de forma intuitiva y personalizada. Marca tus tareas a medida que avanzas y mejora tu productividad. ¡Pon fin a la procrastinación hoy mismo!",
-      image: "./../img/muchachosconarchivos.jpg", // Ruta de tu imagen
+      image: "", // Ruta de tu imagen
     },
     {
       description: "El proyecto de ToDo List es una aplicación que te permite crear, organizar y gestionar tus tareas diarias de manera eficiente. Puedes agregar, editar y eliminar tareas y marcarlas como completadas",
@@ -74,9 +74,9 @@ function Homem() {
                   </div>
               <div className="ImgTodolist">
               <img
-                    src={slides[currentIndex].image}
+                    src="./../img/hacertodo.jpg"
                     alt={slides[currentIndex].title}
-                    className={`carousel__image ${btnlistener ? "active-BTN" : ""}`}
+                    className={`carousel__image${currentIndex} ${btnlistener ? "active-BTN" : ""}`}
                   />
               </div>
             </div>
