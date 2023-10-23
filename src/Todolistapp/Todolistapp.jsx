@@ -12,6 +12,14 @@ export const Todolistapp = () => {
   const clearLocalStorage = () => {
     localStorage.removeItem('account');
     localStorage.removeItem('islog');
+                // Retraso de 0.05 segundos antes del primer toggleDarkMode
+                setTimeout(() => {
+                  toggleDarkMode();
+                  // Retraso de 0.05 segundos antes del segundo toggleDarkMode
+                  setTimeout(() => {
+                    toggleDarkMode();
+                  }, 10);
+                }, 10);
     navigate("/ToDoList/loginandregister");
   };
 

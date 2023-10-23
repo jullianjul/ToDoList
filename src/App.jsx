@@ -44,6 +44,7 @@ const SearchPage= () => {
 
 
 function App() {
+  const { darkmode, toggleDarkMode } = useDarkMode();
     const getislog = localStorage.getItem('islog');
     const isloguin = JSON.parse(getislog);
     const storedAccount = localStorage.getItem('account');
@@ -58,8 +59,8 @@ function App() {
       }else{
         setUserShow(username)
       }
-    }, []);
-    const { darkmode, toggleDarkMode } = useDarkMode();
+    }, [username]);
+
 
   return (
     <div className='App'>

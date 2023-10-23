@@ -8,8 +8,26 @@ import { useNavigate } from "react-router-dom";
 
 const LoginAndRegister= () => {
   {/*inicio animación*/}
-  {/*Fin animación*/}
+  const { darkmode, toggleDarkMode } = useDarkMode();
   const navigate = useNavigate();
+  const getislog = localStorage.getItem('islog')||{};
+  useEffect(() => {
+    console.log(getislog)
+    if(getislog==='true'){
+      redirectuser();
+    }
+    // Opcional: puedes devolver una función de limpieza (cleanup) si es necesario
+    return () => {
+      // Código de limpieza (se ejecuta cuando el componente se desmonta o cuando las dependencias cambian)
+    };
+  }, []);
+  function redirectuser(){
+    toggleDarkMode();
+    toggleDarkMode();
+    navigate('/ToDoList/aplication');
+  }
+  
+  {/*Fin animación*/}
 
   {/*recibidor de parametros*/}
   {/* parametros login*/}
@@ -68,8 +86,16 @@ const LoginAndRegister= () => {
       setHasError(false);
   
       console.log('Usuario logueado:', NameR);
+        // Retraso de 0.5 segundos antes del primer toggleDarkMode
+          setTimeout(() => {
+            toggleDarkMode();
+            // Retraso de 0.5 segundos antes del segundo toggleDarkMode
+            setTimeout(() => {
+              toggleDarkMode();
+              navigate("/ToDoList/Aplication");
+            }, 10);
+          }, 10);
 
-  
       navigate("/ToDoList/Aplication");
     } else {
       setIsLogin(false);
@@ -231,6 +257,15 @@ const LoginAndRegister= () => {
     localStorage.setItem('islog', true);
     setIsLogin(true);
     setHasError(false);
+            // Retraso de 0.5 segundos antes del primer toggleDarkMode
+            setTimeout(() => {
+              toggleDarkMode();
+              // Retraso de 0.5 segundos antes del segundo toggleDarkMode
+              setTimeout(() => {
+                toggleDarkMode();
+                navigate("/ToDoList/Aplication");
+              }, 10);
+            }, 10);
 
     console.log('Usuario logueado:', NameR);
 
@@ -248,7 +283,7 @@ const LoginAndRegister= () => {
   {/* register success functions end*/}
 
   //darkmode
-  const { darkmode} = useDarkMode();
+  
   const Background=()=>{
     return <main className={darkmode?'Backgrounddark':'Background'}></main>
   }
